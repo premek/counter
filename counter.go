@@ -37,7 +37,7 @@ func initDb() {
 	`
 	_, err = db.Exec(sqlStmt)
 	if err != nil {
-		log.Fatal("%q: %s\n", err, sqlStmt)
+		log.Fatal(err)
 	}
 
 	insertStmt, err = db.Prepare("insert into counter(timestamp, site) values(?, ?)")
@@ -48,7 +48,7 @@ func initDb() {
 	query, err = db.Prepare("select count(*) from counter where site=?")
 
 	if err != nil {
-		fmt.Printf("%s", err)
+		log.Fatal(err)
 	}
 
 	// TODO where to defer-close db and prepared statements?
